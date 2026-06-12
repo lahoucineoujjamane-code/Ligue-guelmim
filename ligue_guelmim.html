@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>العصبة الجهوية لكرة القدم – كلميم واد نون</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+  :root {
+    --green-dark: #0d3d20;
+    --green-mid: #1a5c2e;
+    --green-light: #267a3e;
+    --gold: #c9960f;
+    --gold-light: #e8b832;
+    --white: #f8f9fa;
+    --gray-bg: #eef2ee;
+    --gray-card: #ffffff;
+    --text-dark: #0d1f14;
+    --text-mid: #3a5c44;
+    --red: #c0392b;
+    --blue: #1a4a8c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--gray-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─────────────────────────────── */
+  header {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 60%, var(--green-light) 100%);
+    color: white;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-badge {
+    width: 58px; height: 58px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+  .logo-text h1 { font-size: 1.15rem; font-weight: 900; line-height: 1.3; }
+  .logo-text span { font-size: 0.78rem; color: var(--gold-light); font-weight: 600; }
+  .header-stats { display: flex; gap: 18px; }
+  .hstat { text-align: center; }
+  .hstat .num { font-size: 1.3rem; font-weight: 900; color: var(--gold-light); }
+  .hstat .lbl { font-size: 0.65rem; color: rgba(255,255,255,0.7); }
+
+  /* ─── NAV TABS ───────────────────────────── */
+  nav { display: flex; overflow-x: auto; background: var(--green-dark); }
+  nav button {
+    flex: 1; min-width: 90px;
+    padding: 11px 8px;
+    background: none; border: none; color: rgba(255,255,255,0.65);
+    font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all .2s;
+  }
+  nav button.active { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+  nav button:hover { color: white; }
+
+  /* ─── MAIN ───────────────────────────────── */
+  main { max-width: 960px; margin: 0 auto; padding: 18px 14px 60px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ─── PAGE TITLE ─────────────────────────── */
+  .page-title {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .page-title h2 { font-size: 1.2rem; font-weight: 900; color: var(--green-dark); }
+  .page-title h2 span { color: var(--gold); }
+
+  /* ─── CARDS GRID ─────────────────────────── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    border-right: 4px solid var(--green-mid);
+    transition: transform .15s, box-shadow .15s;
+    cursor: pointer;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+
+  .card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .card-avatar {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--green-mid);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1.1rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .card-name { font-weight: 700; font-size: 0.97rem; }
+  .card-sub { font-size: 0.75rem; color: var(--text-mid); margin-top: 2px; }
+  .card-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+  .badge {
+    padding: 3px 9px; border-radius: 20px;
+    font-size: 0.7rem; font-weight: 700;
+  }
+  .badge-green { background: #d4edda; color: #1a5c2e; }
+  .badge-gold  { background: #fef3cd; color: #856404; }
+  .badge-blue  { background: #d1ecf1; color: #0c5460; }
+  .badge-red   { background: #f8d7da; color: #721c24; }
+  .badge-gray  { background: #e2e3e5; color: #383d41; }
+
+  /* ─── BUTTON ─────────────────────────────── */
+  .btn {
+    padding: 9px 18px; border-radius: 8px;
+    border: none; cursor: pointer;
+    font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.85rem;
+    transition: opacity .15s;
+  }
+  .btn:hover { opacity: .88; }
+  .btn-green  { background: var(--green-mid); color: white; }
+  .btn-gold   { background: var(--gold); color: white; }
+  .btn-red    { background: var(--red); color: white; }
+  .btn-outline { background: none; border: 2px solid var(--green-mid); color: var(--green-mid); }
+  .btn-sm { padding: 5px 12px; font-size: 0.78rem; }
+
+  /* ─── MODAL ─────────────────────────────── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); z-index: 500;
+    align-items: center; justify-content: center;
+    padding: 14px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: 16px;
+    width: 100%; max-width: 520px; max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .modal-head {
+    background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+    color: white; padding: 18px 20px;
+    border-radius: 16px 16px 0 0;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-head h3 { font-size: 1rem; font-weight: 800; }
+  .modal-close {
+    background: rgba(255,255,255,0.15); border: none; color: white;
+    width: 32px; height: 32px; border-radius: 50%;
+    cursor: pointer; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-body { padding: 20px; }
+  .modal-footer { padding: 14px 20px; border-top: 1px solid #eee; display: flex; gap: 10px; justify-content: flex-end; }
+
+  /* ─── FORM ─────────────────────────────── */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group.full { grid-column: 1/-1; }
+  .form-group label { font-size: 0.78rem; font-weight: 700; color: var(--text-mid); }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 9px 12px; border: 1.5px solid #d0d7d0;
+    border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.88rem;
+    transition: border-color .15s; background: white; color: var(--text-dark);
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--green-mid);
+  }
+
+  /* ─── SEARCH BAR ─────────────────────────── */
+  .search-bar {
+    display: flex; gap: 8px; margin-bottom: 16px;
+  }
+  .search-bar input {
+    flex: 1; padding: 10px 14px;
+    border: 1.5px solid #d0d7d0; border-radius: 8px;
+    font-family: 'Cairo', sans-serif; font-size: 0.88rem;
+  }
+  .search-bar input:focus { outline: none; border-color: var(--green-mid); }
+  .search-bar select {
+    padding: 10px 12px; border: 1.5px solid #d0d7d0; border-radius: 8px;
+    font-family: 'Cairo', sans-serif; font-size: 0.82rem;
+  }
+
+  /* ─── DASHBOARD ─────────────────────────── */
+  .dash-stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media(min-width:500px){ .dash-stats { grid-template-columns: repeat(4,1fr); } }
+  .stat-card {
+    background: white; border-radius: 12px;
+    padding: 16px 14px; text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border-top: 4px solid var(--green-mid);
+  }
+  .stat-card .big { font-size: 2rem; font-weight: 900; color: var(--green-dark); }
+  .stat-card .lbl { font-size: 0.72rem; color: var(--text-mid); font-weight: 600; margin-top: 2px; }
+
+  /* ─── MATCH RESULT CARD ─────────────────── */
+  .match-card {
+    background: white; border-radius: 12px; padding: 14px 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    margin-bottom: 10px;
+    border-right: 4px solid var(--blue);
+  }
+  .match-meta { font-size: 0.7rem; color: #888; margin-bottom: 8px; display: flex; gap: 14px; }
+  .match-score {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .match-team { flex: 1; font-weight: 700; font-size: 0.9rem; }
+  .match-team.right-align { text-align: left; }
+  .score-box {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--green-dark); color: white;
+    padding: 6px 12px; border-radius: 8px; font-weight: 900; font-size: 1.1rem;
+  }
+  .score-dash { color: rgba(255,255,255,0.5); }
+
+  /* ─── TABLE ─────────────────────────────── */
+  .table-wrap { overflow-x: auto; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  table { width: 100%; border-collapse: collapse; background: white; font-size: 0.82rem; }
+  thead { background: var(--green-dark); color: white; }
+  th { padding: 10px 12px; font-weight: 700; text-align: right; }
+  td { padding: 9px 12px; border-bottom: 1px solid #eee; }
+  tr:hover td { background: #f0f7f2; }
+  .rank-1 td:first-child { color: var(--gold); font-weight: 900; font-size: 1rem; }
+  .rank-2 td:first-child { color: #aaa; font-weight: 800; }
+  .rank-3 td:first-child { color: #cd7f32; font-weight: 800; }
+
+  /* ─── SECTION DIVIDER ─────────────────── */
+  .section-divider {
+    display: flex; align-items: center; gap: 12px; margin: 20px 0 14px;
+  }
+  .section-divider h3 { font-size: 0.95rem; font-weight: 800; color: var(--green-dark); white-space: nowrap; }
+  .section-divider hr { flex: 1; border: none; border-top: 2px solid #d0e8d5; }
+
+  /* ─── EMPTY STATE ─────────────────────── */
+  .empty { text-align: center; padding: 40px 20px; color: #aaa; }
+  .empty .icon { font-size: 3rem; margin-bottom: 10px; }
+  .empty p { font-size: 0.88rem; }
+
+  /* ─── ACTION BUTTONS IN CARD ──────────── */
+  .card-actions { display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end; }
+
+  /* ─── TOAST ─────────────────────────────── */
+  #toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--green-dark); color: white; padding: 12px 24px;
+    border-radius: 30px; font-weight: 700; font-size: 0.88rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: transform .3s; z-index: 1000;
+    border: 2px solid var(--gold);
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .filter-chip {
+    padding: 5px 14px; border-radius: 20px; border: 1.5px solid #ccc;
+    font-family: 'Cairo', sans-serif; font-size: 0.78rem; font-weight: 600;
+    cursor: pointer; background: white; transition: all .15s;
+  }
+  .filter-chip.active { background: var(--green-mid); border-color: var(--green-mid); color: white; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header>
+  <div class="header-top">
+    <div class="logo-area">
+      <div class="logo-badge">⚽</div>
+      <div class="logo-text">
+        <h1>العصبة الجهوية لكرة القدم</h1>
+        <span>جهة كلميم – واد نون</span>
+      </div>
+    </div>
+    <div class="header-stats" id="headerStats">
+      <div class="hstat"><div class="num" id="hs-clubs">0</div><div class="lbl">نادٍ</div></div>
+      <div class="hstat"><div class="num" id="hs-players">0</div><div class="lbl">لاعب</div></div>
+      <div class="hstat"><div class="num" id="hs-matches">0</div><div class="lbl">مباراة</div></div>
+    </div>
+  </div>
+  <nav>
+    <button class="active" onclick="showSection('dash',this)">🏠 الرئيسية</button>
+    <button onclick="showSection('players',this)">👤 اللاعبون</button>
+    <button onclick="showSection('clubs',this)">🏟️ الأندية</button>
+    <button onclick="showSection('results',this)">📊 النتائج</button>
+    <button onclick="showSection('standings',this)">🏆 الترتيب</button>
+  </nav>
+</header>
+
+<!-- ═══════════════════════ MAIN ═══════════════════════ -->
+<main>
+
+  <!-- ─── DASHBOARD ─── -->
+  <div class="section active" id="dash">
+    <div class="page-title">
+      <h2>لوحة القيادة <span>الموسم 2024/25</span></h2>
+    </div>
+    <div class="dash-stats">
+      <div class="stat-card"><div class="big" id="ds-clubs">0</div><div class="lbl">🏟️ الأندية</div></div>
+      <div class="stat-card"><div class="big" id="ds-players">0</div><div class="lbl">👤 اللاعبون</div></div>
+      <div class="stat-card"><div class="big" id="ds-matches">0</div><div class="lbl">⚽ المباريات</div></div>
+      <div class="stat-card"><div class="big" id="ds-categories">0</div><div class="lbl">📋 الفئات</div></div>
+    </div>
+
+    <div class="section-divider"><h3>📋 توزيع اللاعبين حسب الفئة</h3><hr></div>
+    <div class="cards-grid" id="dashCategoryCards"></div>
+
+    <div class="section-divider"><h3>🕐 آخر النتائج</h3><hr></div>
+    <div id="dashRecentMatches"></div>
+  </div>
+
+  <!-- ─── PLAYERS ─── -->
+  <div class="section" id="players">
+    <div class="page-title">
+      <h2>👤 <span>اللاعبون</span></h2>
+      <button class="btn btn-green" onclick="openModal('playerModal')">+ إضافة لاعب</button>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="playerSearch" placeholder="ابحث باسم اللاعب أو رقم البطاقة…" oninput="renderPlayers()">
+      <select id="playerFilterCat" onchange="renderPlayers()">
+        <option value="">كل الفئات</option>
+      </select>
+      <select id="playerFilterClub" onchange="renderPlayers()">
+        <option value="">كل الأندية</option>
+      </select>
+    </div>
+    <div class="cards-grid" id="playersGrid"></div>
+    <div class="empty" id="playersEmpty" style="display:none">
+      <div class="icon">👤</div><p>لا يوجد لاعبون بعد. ابدأ بإضافة أول لاعب.</p>
+    </div>
+  </div>
+
+  <!-- ─── CLUBS ─── -->
+  <div class="section" id="clubs">
+    <div class="page-title">
+      <h2>🏟️ <span>الأندية</span></h2>
+      <button class="btn btn-green" onclick="openModal('clubModal')">+ إضافة نادٍ</button>
+    </div>
+    <div class="cards-grid" id="clubsGrid"></div>
+    <div class="empty" id="clubsEmpty" style="display:none">
+      <div class="icon">🏟️</div><p>لا توجد أندية مسجلة بعد.</p>
+    </div>
+  </div>
+
+  <!-- ─── RESULTS ─── -->
+  <div class="section" id="results">
+    <div class="page-title">
+      <h2>📊 <span>نتائج المباريات</span></h2>
+      <button class="btn btn-green" onclick="openModal('matchModal')">+ تسجيل نتيجة</button>
+    </div>
+    <div class="filter-row" id="matchFilters"></div>
+    <div id="matchesList"></div>
+    <div class="empty" id="matchesEmpty" style="display:none">
+      <div class="icon">⚽</div><p>لا توجد نتائج مسجلة بعد.</p>
+    </div>
+  </div>
+
+  <!-- ─── STANDINGS ─── -->
+  <div class="section" id="standings">
+    <div class="page-title">
+      <h2>🏆 <span>الترتيب</span></h2>
+    </div>
+    <div class="filter-row" id="standingsFilters"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>النادي</th><th>لعب</th><th>فاز</th><th>تعادل</th><th>خسر</th><th>+أهداف</th><th>-أهداف</th><th>الفارق</th><th>النقاط</th>
+          </tr>
+        </thead>
+        <tbody id="standingsBody"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="standingsEmpty" style="display:none">
+      <div class="icon">🏆</div><p>سجّل النتائج أولاً لحساب الترتيب.</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ════ MODAL: PLAYER ════ -->
+<div class="modal-overlay" id="playerModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="playerModalTitle">إضافة لاعب جديد</h3>
+      <button class="modal-close" onclick="closeModal('playerModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>الاسم الكامل *</label>
+          <input type="text" id="pName" placeholder="محمد أمين الزياني">
+        </div>
+        <div class="form-group">
+          <label>رقم البطاقة الوطنية *</label>
+          <input type="text" id="pCIN" placeholder="BE123456">
+        </div>
+        <div class="form-group">
+          <label>تاريخ الازدياد *</label>
+          <input type="date" id="pBirth">
+        </div>
+        <div class="form-group">
+          <label>الفئة *</label>
+          <select id="pCategory">
+            <option value="">-- اختر الفئة --</option>
+            <option>أكابر</option>
+            <option>أمل (أقل من 21)</option>
+            <option>شبان (أقل من 18)</option>
+            <option>أواسط (أقل من 16)</option>
+            <option>أشبال (أقل من 14)</option>
+            <option>براعم (أقل من 12)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>النادي *</label>
+          <select id="pClub">
+            <option value="">-- اختر النادي --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>المركز</label>
+          <select id="pPosition">
+            <option value="">--</option>
+            <option>حارس مرمى</option>
+            <option>مدافع أيمن</option>
+            <option>مدافع أيسر</option>
+            <option>قلب دفاع</option>
+            <option>وسط دفاعي</option>
+            <option>وسط</option>
+            <option>وسط هجومي</option>
+            <option>جناح أيمن</option>
+            <option>جناح أيسر</option>
+            <option>مهاجم</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>رقم القميص</label>
+          <input type="number" id="pNumber" min="1" max="99" placeholder="10">
+        </div>
+        <div class="form-group">
+          <label>رقم الانتساب</label>
+          <input type="text" id="pLicence" placeholder="GN-2024-001">
+        </div>
+        <div class="form-group">
+          <label>الجنسية</label>
+          <input type="text" id="pNat" value="مغربية">
+        </div>
+        <div class="form-group full">
+          <label>ملاحظات</label>
+          <textarea id="pNotes" rows="2" placeholder="إصابات، وضعية الانتساب…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('playerModal')">إلغاء</button>
+      <button class="btn btn-green" onclick="savePlayer()">💾 حفظ اللاعب</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL: CLUB ════ -->
+<div class="modal-overlay" id="clubModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="clubModalTitle">إضافة نادٍ جديد</h3>
+      <button class="modal-close" onclick="closeModal('clubModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>اسم النادي *</label>
+          <input type="text" id="cName" placeholder="نادي الأمل الرياضي كلميم">
+        </div>
+        <div class="form-group">
+          <label>المدينة / الجماعة</label>
+          <input type="text" id="cCity" placeholder="كلميم">
+        </div>
+        <div class="form-group">
+          <label>تاريخ التأسيس</label>
+          <input type="number" id="cYear" min="1900" max="2024" placeholder="1985">
+        </div>
+        <div class="form-group">
+          <label>الملعب الرئيسي</label>
+          <input type="text" id="cStadium" placeholder="ملعب المسيرة">
+        </div>
+        <div class="form-group">
+          <label>رئيس النادي</label>
+          <input type="text" id="cPresident" placeholder="الاسم الكامل">
+        </div>
+        <div class="form-group">
+          <label>المدرب</label>
+          <input type="text" id="cCoach" placeholder="الاسم الكامل">
+        </div>
+        <div class="form-group">
+          <label>رقم الاتصال</label>
+          <input type="tel" id="cPhone" placeholder="0661-XXXXXX">
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="cEmail" placeholder="club@example.com">
+        </div>
+        <div class="form-group full">
+          <label>الفئات المشاركة</label>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px" id="cCatsCheckboxes">
+            <label style="font-weight:400;font-size:.83rem;display:flex;align-items:center;gap:4px"><input type="checkbox" value="أكابر"> أكابر</label>
+            <label style="font-weight:400;font-size:.83rem;display:flex;align-items:center;gap:4px"><input type="checkbox" value="أمل (أقل من 21)"> أمل</label>
+            <label style="font-weight:400;font-size:.83rem;display:flex;align-items:center;gap:4px"><input type="checkbox" value="شبان (أقل من 18)"> شبان</label>
+            <label style="font-weight:400;font-size:.83rem;display:flex;align-items:center;gap:4px"><input type="checkbox" value="أواسط (أقل من 16)"> أواسط</label>
+            <label style="font-weight:400;font-size:.83rem;display:flex;align-items:center;gap:4px"><input type="checkbox" value="أشبال (أقل من 14)"> أشبال</label>
+            <label style="font-weight:400;font-size:.83rem;display:flex;align-items:center;gap:4px"><input type="checkbox" value="براعم (أقل من 12)"> براعم</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('clubModal')">إلغاء</button>
+      <button class="btn btn-green" onclick="saveClub()">💾 حفظ النادي</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL: MATCH ════ -->
+<div class="modal-overlay" id="matchModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>تسجيل نتيجة مباراة</h3>
+      <button class="modal-close" onclick="closeModal('matchModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>الفئة *</label>
+          <select id="mCategory">
+            <option value="">-- اختر --</option>
+            <option>أكابر</option>
+            <option>أمل (أقل من 21)</option>
+            <option>شبان (أقل من 18)</option>
+            <option>أواسط (أقل من 16)</option>
+            <option>أشبال (أقل من 14)</option>
+            <option>براعم (أقل من 12)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>الجولة</label>
+          <input type="number" id="mRound" min="1" placeholder="1">
+        </div>
+        <div class="form-group full">
+          <label>التاريخ *</label>
+          <input type="date" id="mDate">
+        </div>
+        <div class="form-group">
+          <label>الفريق المضيف *</label>
+          <select id="mHome">
+            <option value="">-- اختر --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>أهداف المضيف</label>
+          <input type="number" id="mHomeScore" min="0" value="0">
+        </div>
+        <div class="form-group">
+          <label>الفريق الضيف *</label>
+          <select id="mAway">
+            <option value="">-- اختر --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>أهداف الضيف</label>
+          <input type="number" id="mAwayScore" min="0" value="0">
+        </div>
+        <div class="form-group full">
+          <label>الملعب</label>
+          <input type="text" id="mStadium" placeholder="اسم الملعب">
+        </div>
+        <div class="form-group full">
+          <label>ملاحظات</label>
+          <textarea id="mNotes" rows="2" placeholder="أهداف، بطاقات، ملاحظات…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('matchModal')">إلغاء</button>
+      <button class="btn btn-green" onclick="saveMatch()">💾 حفظ النتيجة</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL: VIEW PLAYER ════ -->
+<div class="modal-overlay" id="viewPlayerModal">
+  <div class="modal">
+    <div class="modal-head" style="background:linear-gradient(135deg,#0d3d20,#1a5c2e)">
+      <h3>بطاقة اللاعب</h3>
+      <button class="modal-close" onclick="closeModal('viewPlayerModal')">✕</button>
+    </div>
+    <div class="modal-body" id="viewPlayerBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('viewPlayerModal')">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast">✅ تم الحفظ بنجاح</div>
+
+<script>
+// ══════════════════════════════════════════
+//  DATA STORE
+// ══════════════════════════════════════════
+const DB_KEYS = { clubs:'fbl_clubs', players:'fbl_players', matches:'fbl_matches' };
+
+function load(k) {
+  try { return JSON.parse(localStorage.getItem(DB_KEYS[k])||'[]'); }
+  catch(e){ return []; }
+}
+function save(k,v){ localStorage.setItem(DB_KEYS[k], JSON.stringify(v)); }
+
+let clubs   = load('clubs');
+let players = load('players');
+let matches = load('matches');
+
+let editingPlayerId = null;
+let editingClubId   = null;
+let matchFilterCat  = '';
+let standFilterCat  = '';
+
+// ══════════════════════════════════════════
+//  NAV
+// ══════════════════════════════════════════
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(id==='players')   renderPlayers();
+  if(id==='clubs')     renderClubs();
+  if(id==='results')   renderMatches();
+  if(id==='standings') renderStandings();
+  if(id==='dash')      renderDash();
+}
+
+// ══════════════════════════════════════════
+//  MODAL
+// ══════════════════════════════════════════
+function openModal(id) {
+  if(id==='playerModal'){
+    editingPlayerId=null;
+    document.getElementById('playerModalTitle').textContent='إضافة لاعب جديد';
+    ['pName','pCIN','pBirth','pCategory','pClub','pPosition','pNumber','pLicence','pNat','pNotes']
+      .forEach(f=>{ const el=document.getElementById(f); if(el){el.value=f==='pNat'?'مغربية':'';} });
+    populateClubSelect('pClub');
+  }
+  if(id==='clubModal'){
+    editingClubId=null;
+    document.getElementById('clubModalTitle').textContent='إضافة نادٍ جديد';
+    ['cName','cCity','cYear','cStadium','cPresident','cCoach','cPhone','cEmail']
+      .forEach(f=>{ const el=document.getElementById(f); if(el) el.value=''; });
+    document.querySelectorAll('#cCatsCheckboxes input').forEach(cb=>cb.checked=false);
+  }
+  if(id==='matchModal'){
+    ['mCategory','mRound','mDate','mHome','mAway','mStadium','mNotes']
+      .forEach(f=>{ const el=document.getElementById(f); if(el) el.value=''; });
+    document.getElementById('mHomeScore').value='0';
+    document.getElementById('mAwayScore').value='0';
+    populateClubSelect('mHome');
+    populateClubSelect('mAway');
+    document.getElementById('mDate').valueAsDate = new Date();
+  }
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+
+// ══════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+
+function toast(msg='✅ تم الحفظ بنجاح'){
+  const t=document.getElementById('toast'); t.textContent=msg;
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+function populateClubSelect(selectId){
+  const sel=document.getElementById(selectId);
+  if(!sel)return;
+  const cur=sel.value;
+  sel.innerHTML='<option value="">-- اختر النادي --</option>';
+  clubs.forEach(c=>{ const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; sel.appendChild(o); });
+  sel.value=cur;
+}
+
+function populateFilterSelects(){
+  const catSel=document.getElementById('playerFilterCat');
+  const clubSel=document.getElementById('playerFilterClub');
+  if(!catSel||!clubSel)return;
+  const curCat=catSel.value, curClub=clubSel.value;
+  catSel.innerHTML='<option value="">كل الفئات</option>';
+  ['أكابر','أمل (أقل من 21)','شبان (أقل من 18)','أواسط (أقل من 16)','أشبال (أقل من 14)','براعم (أقل من 12)']
+    .forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; catSel.appendChild(o); });
+  catSel.value=curCat;
+  clubSel.innerHTML='<option value="">كل الأندية</option>';
+  clubs.forEach(c=>{ const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; clubSel.appendChild(o); });
+  clubSel.value=curClub;
+}
+
+function getClubName(id){ const c=clubs.find(x=>x.id===id); return c?c.name:id||'—'; }
+
+function calcAge(dob){
+  if(!dob)return'—';
+  const d=new Date(dob), now=new Date();
+  let a=now.getFullYear()-d.getFullYear();
+  if(now<new Date(now.getFullYear(),d.getMonth(),d.getDate())) a--;
+  return a;
+}
+
+// ══════════════════════════════════════════
+//  SAVE PLAYER
+// ══════════════════════════════════════════
+function savePlayer(){
+  const name=document.getElementById('pName').value.trim();
+  const cin=document.getElementById('pCIN').value.trim();
+  const cat=document.getElementById('pCategory').value;
+  const club=document.getElementById('pClub').value;
+  if(!name||!cin||!cat||!club){ toast('⚠️ يرجى ملء الحقول الإلزامية'); return; }
+
+  const p={
+    id: editingPlayerId||uid(),
+    name, cin, category:cat, clubId:club,
+    birth: document.getElementById('pBirth').value,
+    position: document.getElementById('pPosition').value,
+    number: document.getElementById('pNumber').value,
+    licence: document.getElementById('pLicence').value,
+    nationality: document.getElementById('pNat').value||'مغربية',
+    notes: document.getElementById('pNotes').value,
+    createdAt: editingPlayerId ? (players.find(x=>x.id===editingPlayerId)||{}).createdAt : new Date().toISOString()
+  };
+
+  if(editingPlayerId){
+    const idx=players.findIndex(x=>x.id===editingPlayerId);
+    players[idx]=p;
+  } else { players.push(p); }
+  save('players',players);
+  closeModal('playerModal');
+  renderPlayers(); updateStats(); renderDash();
+  toast(editingPlayerId?'✏️ تم تحديث اللاعب':'✅ تم إضافة اللاعب');
+  editingPlayerId=null;
+}
+
+// ══════════════════════════════════════════
+//  RENDER PLAYERS
+// ══════════════════════════════════════════
+function renderPlayers(){
+  populateFilterSelects();
+  const q=(document.getElementById('playerSearch')||{}).value?.toLowerCase()||'';
+  const fc=(document.getElementById('playerFilterCat')||{}).value||'';
+  const fl=(document.getElementById('playerFilterClub')||{}).value||'';
+
+  let list=players.filter(p=>{
+    const matchQ = !q || p.name.toLowerCase().includes(q) || p.cin.toLowerCase().includes(q) || (p.licence||'').toLowerCase().includes(q);
+    const matchC = !fc || p.category===fc;
+    const matchL = !fl || p.clubId===fl;
+    return matchQ&&matchC&&matchL;
+  });
+
+  const grid=document.getElementById('playersGrid');
+  const empty=document.getElementById('playersEmpty');
+  if(!list.length){ grid.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display='none';
+
+  const CAT_COLORS={
+    'أكابر':'badge-green','أمل (أقل من 21)':'badge-blue','شبان (أقل من 18)':'badge-gold',
+    'أواسط (أقل من 16)':'badge-gray','أشبال (أقل من 14)':'badge-red','براعم (أقل من 12)':'badge-blue'
+  };
+
+  grid.innerHTML=list.map(p=>{
+    const initials=p.name.split(' ').map(w=>w[0]||'').slice(0,2).join('');
+    const age=calcAge(p.birth);
+    const cc=CAT_COLORS[p.category]||'badge-gray';
+    return `<div class="card" onclick="viewPlayer('${p.id}')">
+      <div class="card-head">
+        <div class="card-avatar">${initials}</div>
+        <div>
+          <div class="card-name">${p.name}</div>
+          <div class="card-sub">${getClubName(p.clubId)} ${p.number?'· #'+p.number:''}</div>
+        </div>
+      </div>
+      <div class="card-badges">
+        <span class="badge ${cc}">${p.category}</span>
+        ${p.position?`<span class="badge badge-gray">${p.position}</span>`:''}
+        ${age!=='—'?`<span class="badge badge-blue">${age} سنة</span>`:''}
+      </div>
+      <div style="font-size:.72rem;color:#888;margin-top:8px">
+        ${p.cin?'ب.و: '+p.cin:''} ${p.licence?'· '+p.licence:''}
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();editPlayer('${p.id}')">✏️</button>
+        <button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePlayer('${p.id}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function viewPlayer(id){
+  const p=players.find(x=>x.id===id); if(!p)return;
+  const age=calcAge(p.birth);
+  document.getElementById('viewPlayerBody').innerHTML=`
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="width:70px;height:70px;border-radius:50%;background:var(--green-mid);color:white;
+        font-size:1.5rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px">
+        ${p.name.split(' ').map(w=>w[0]||'').slice(0,2).join('')}
+      </div>
+      <div style="font-size:1.1rem;font-weight:800">${p.name}</div>
+      <div style="color:var(--text-mid);font-size:.82rem">${getClubName(p.clubId)}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      ${row('الفئة',p.category)}${row('المركز',p.position||'—')}
+      ${row('رقم القميص',p.number||'—')}${row('العمر',age!=='—'?age+' سنة':'—')}
+      ${row('تاريخ الازدياد',p.birth||'—')}${row('الجنسية',p.nationality||'—')}
+      ${row('رقم البطاقة',p.cin||'—')}${row('رقم الانتساب',p.licence||'—')}
+    </div>
+    ${p.notes?`<div style="margin-top:14px;padding:10px 12px;background:#f8f8f8;border-radius:8px;font-size:.83rem;color:var(--text-mid)">📝 ${p.notes}</div>`:''}
+  `;
+  openModal('viewPlayerModal');
+}
+function row(lbl,val){
+  return `<div style="background:#f4f8f4;border-radius:8px;padding:10px 12px">
+    <div style="font-size:.7rem;color:#888;font-weight:700">${lbl}</div>
+    <div style="font-weight:700;margin-top:2px">${val}</div>
+  </div>`;
+}
+
+function editPlayer(id){
+  const p=players.find(x=>x.id===id); if(!p)return;
+  editingPlayerId=id;
+  document.getElementById('playerModalTitle').textContent='تعديل بيانات اللاعب';
+  populateClubSelect('pClub');
+  const flds={pName:'name',pCIN:'cin',pBirth:'birth',pCategory:'category',pClub:'clubId',
+    pPosition:'position',pNumber:'number',pLicence:'licence',pNat:'nationality',pNotes:'notes'};
+  for(const [fid,key] of Object.entries(flds)){
+    const el=document.getElementById(fid); if(el) el.value=p[key]||'';
+  }
+  openModal('playerModal');
+}
+
+function deletePlayer(id){
+  if(!confirm('هل أنت متأكد من حذف هذا اللاعب؟'))return;
+  players=players.filter(x=>x.id!==id); save('players',players);
+  renderPlayers(); updateStats(); renderDash();
+  toast('🗑️ تم حذف اللاعب');
+}
+
+// ══════════════════════════════════════════
+//  SAVE CLUB
+// ══════════════════════════════════════════
+function saveClub(){
+  const name=document.getElementById('cName').value.trim();
+  if(!name){ toast('⚠️ اسم النادي مطلوب'); return; }
+  const cats=[...document.querySelectorAll('#cCatsCheckboxes input:checked')].map(c=>c.value);
+  const c={
+    id: editingClubId||uid(),
+    name,
+    city: document.getElementById('cCity').value,
+    year: document.getElementById('cYear').value,
+    stadium: document.getElementById('cStadium').value,
+    president: document.getElementById('cPresident').value,
+    coach: document.getElementById('cCoach').value,
+    phone: document.getElementById('cPhone').value,
+    email: document.getElementById('cEmail').value,
+    categories: cats,
+    createdAt: editingClubId?(clubs.find(x=>x.id===editingClubId)||{}).createdAt:new Date().toISOString()
+  };
+  if(editingClubId){ const idx=clubs.findIndex(x=>x.id===editingClubId); clubs[idx]=c; }
+  else clubs.push(c);
+  save('clubs',clubs);
+  closeModal('clubModal');
+  renderClubs(); updateStats(); renderDash();
+  toast(editingClubId?'✏️ تم تحديث النادي':'✅ تم إضافة النادي');
+  editingClubId=null;
+}
+
+// ══════════════════════════════════════════
+//  RENDER CLUBS
+// ══════════════════════════════════════════
+function renderClubs(){
+  const grid=document.getElementById('clubsGrid');
+  const empty=document.getElementById('clubsEmpty');
+  if(!clubs.length){ grid.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display='none';
+  grid.innerHTML=clubs.map(c=>{
+    const pCount=players.filter(p=>p.clubId===c.id).length;
+    const cats=c.categories||[];
+    return `<div class="card">
+      <div class="card-head">
+        <div class="card-avatar" style="background:var(--gold);font-size:.85rem">🏟️</div>
+        <div>
+          <div class="card-name">${c.name}</div>
+          <div class="card-sub">${c.city||'—'} ${c.year?'· '+c.year:''}</div>
+        </div>
+      </div>
+      <div class="card-badges">
+        <span class="badge badge-green">👤 ${pCount} لاعب</span>
+        ${c.stadium?`<span class="badge badge-gray">🏟 ${c.stadium}</span>`:''}
+      </div>
+      ${cats.length?`<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px">
+        ${cats.map(x=>`<span class="badge badge-blue" style="font-size:.68rem">${x}</span>`).join('')}
+      </div>`:''}
+      ${c.coach?`<div style="font-size:.73rem;color:#666;margin-top:8px">🧑‍💼 المدرب: ${c.coach}</div>`:''}
+      <div class="card-actions">
+        <button class="btn btn-outline btn-sm" onclick="editClub('${c.id}')">✏️</button>
+        <button class="btn btn-red btn-sm" onclick="deleteClub('${c.id}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function editClub(id){
+  const c=clubs.find(x=>x.id===id); if(!c)return;
+  editingClubId=id;
+  document.getElementById('clubModalTitle').textContent='تعديل بيانات النادي';
+  ['cName','cCity','cYear','cStadium','cPresident','cCoach','cPhone','cEmail']
+    .forEach(f=>{ const k=f.slice(1).toLowerCase(); const el=document.getElementById(f); if(el) el.value=c[k]||c[{cName:'name',cCity:'city',cYear:'year',cStadium:'stadium',cPresident:'president',cCoach:'coach',cPhone:'phone',cEmail:'email'}[f]]||''; });
+  document.getElementById('cName').value=c.name||'';
+  document.getElementById('cCity').value=c.city||'';
+  document.getElementById('cYear').value=c.year||'';
+  document.getElementById('cStadium').value=c.stadium||'';
+  document.getElementById('cPresident').value=c.president||'';
+  document.getElementById('cCoach').value=c.coach||'';
+  document.getElementById('cPhone').value=c.phone||'';
+  document.getElementById('cEmail').value=c.email||'';
+  document.querySelectorAll('#cCatsCheckboxes input').forEach(cb=>{ cb.checked=(c.categories||[]).includes(cb.value); });
+  openModal('clubModal');
+}
+
+function deleteClub(id){
+  if(!confirm('حذف هذا النادي؟ سيتم حذف بيانات لاعبيه أيضاً.'))return;
+  clubs=clubs.filter(x=>x.id!==id); players=players.filter(x=>x.clubId!==id);
+  save('clubs',clubs); save('players',players);
+  renderClubs(); renderPlayers(); updateStats(); renderDash();
+  toast('🗑️ تم حذف النادي');
+}
+
+// ══════════════════════════════════════════
+//  SAVE MATCH
+// ══════════════════════════════════════════
+function saveMatch(){
+  const cat=document.getElementById('mCategory').value;
+  const home=document.getElementById('mHome').value;
+  const away=document.getElementById('mAway').value;
+  const date=document.getElementById('mDate').value;
+  if(!cat||!home||!away||!date){ toast('⚠️ يرجى ملء الحقول الإلزامية'); return; }
+  if(home===away){ toast('⚠️ لا يمكن للفريق أن يلعب ضد نفسه'); return; }
+  const m={
+    id: uid(), category:cat, date,
+    homeId:home, awayId:away,
+    homeScore: parseInt(document.getElementById('mHomeScore').value)||0,
+    awayScore: parseInt(document.getElementById('mAwayScore').value)||0,
+    round: document.getElementById('mRound').value,
+    stadium: document.getElementById('mStadium').value,
+    notes: document.getElementById('mNotes').value,
+    createdAt: new Date().toISOString()
+  };
+  matches.push(m); save('matches',matches);
+  closeModal('matchModal');
+  renderMatches(); renderStandings(); updateStats(); renderDash();
+  toast('✅ تم تسجيل النتيجة');
+}
+
+// ══════════════════════════════════════════
+//  RENDER MATCHES
+// ══════════════════════════════════════════
+function renderMatches(){
+  const container=document.getElementById('matchesList');
+  const empty=document.getElementById('matchesEmpty');
+  const filtersDiv=document.getElementById('matchFilters');
+
+  const cats=[...new Set(matches.map(m=>m.category))];
+  filtersDiv.innerHTML='<button class="filter-chip '+(matchFilterCat===''?'active':'')+'" onclick="setMatchFilter(\'\')">الكل</button>'
+    + cats.map(c=>`<button class="filter-chip ${matchFilterCat===c?'active':''}" onclick="setMatchFilter('${c}')">${c}</button>`).join('');
+
+  let list=matchFilterCat ? matches.filter(m=>m.category===matchFilterCat) : [...matches];
+  list.sort((a,b)=>b.date.localeCompare(a.date));
+
+  if(!list.length){ container.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display='none';
+
+  container.innerHTML=list.map(m=>{
+    const hn=getClubName(m.homeId), an=getClubName(m.awayId);
+    const winner = m.homeScore>m.awayScore?'home':m.awayScore>m.homeScore?'away':'draw';
+    return `<div class="match-card">
+      <div class="match-meta">
+        <span>📅 ${m.date}</span>
+        <span class="badge badge-gold">${m.category}</span>
+        ${m.round?`<span>الجولة ${m.round}</span>`:''}
+        ${m.stadium?`<span>🏟 ${m.stadium}</span>`:''}
+      </div>
+      <div class="match-score">
+        <div class="match-team" style="${winner==='home'?'color:var(--green-dark);font-size:1rem':''}">${hn}</div>
+        <div class="score-box">
+          <span style="${winner==='home'?'color:var(--gold-light)':''}">${m.homeScore}</span>
+          <span class="score-dash">–</span>
+          <span style="${winner==='away'?'color:var(--gold-light)':''}">${m.awayScore}</span>
+        </div>
+        <div class="match-team right-align" style="${winner==='away'?'color:var(--green-dark);font-size:1rem':''}">${an}</div>
+      </div>
+      ${m.notes?`<div style="font-size:.72rem;color:#888;margin-top:8px">📝 ${m.notes}</div>`:''}
+      <div style="text-align:left;margin-top:8px">
+        <button class="btn btn-red btn-sm" onclick="deleteMatch('${m.id}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setMatchFilter(cat){ matchFilterCat=cat; renderMatches(); }
+
+function deleteMatch(id){
+  if(!confirm('حذف هذه النتيجة؟'))return;
+  matches=matches.filter(x=>x.id!==id); save('matches',matches);
+  renderMatches(); renderStandings(); updateStats(); renderDash();
+  toast('🗑️ تم حذف النتيجة');
+}
+
+// ══════════════════════════════════════════
+//  STANDINGS
+// ══════════════════════════════════════════
+function renderStandings(){
+  const filtersDiv=document.getElementById('standingsFilters');
+  const cats=[...new Set(matches.map(m=>m.category))];
+  if(!standFilterCat && cats.length) standFilterCat=cats[0];
+  filtersDiv.innerHTML=cats.map(c=>`<button class="filter-chip ${standFilterCat===c?'active':''}" onclick="setStandFilter('${c}')">${c}</button>`).join('');
+
+  const tbody=document.getElementById('standingsBody');
+  const empty=document.getElementById('standingsEmpty');
+
+  if(!cats.length){ tbody.innerHTML=''; empty.style.display=''; return; }
+
+  const catMatches=matches.filter(m=>m.category===standFilterCat);
+  const clubsInCat=[...new Set(catMatches.flatMap(m=>[m.homeId,m.awayId]))];
+
+  if(!clubsInCat.length){ tbody.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display='none';
+
+  const stats={}; 
+  clubsInCat.forEach(id=>{ stats[id]={p:0,w:0,d:0,l:0,gf:0,ga:0}; });
+  catMatches.forEach(m=>{
+    const h=stats[m.homeId], a=stats[m.awayId];
+    h.p++; a.p++;
+    h.gf+=m.homeScore; h.ga+=m.awayScore;
+    a.gf+=m.awayScore; a.ga+=m.homeScore;
+    if(m.homeScore>m.awayScore){ h.w++; a.l++; }
+    else if(m.awayScore>m.homeScore){ a.w++; h.l++; }
+    else { h.d++; a.d++; }
+  });
+  const table=clubsInCat.map(id=>({id,name:getClubName(id),...stats[id],pts:stats[id].w*3+stats[id].d}));
+  table.sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf);
+
+  tbody.innerHTML=table.map((r,i)=>`
+    <tr class="${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}">
+      <td>${i+1}</td><td style="font-weight:700">${r.name}</td>
+      <td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
+      <td>${r.gf}</td><td>${r.ga}</td>
+      <td style="font-weight:700;color:${r.gf-r.ga>=0?'var(--green-mid)':'var(--red)'}">${r.gf-r.ga>0?'+':''}${r.gf-r.ga}</td>
+      <td style="font-weight:900;font-size:1rem;color:var(--green-dark)">${r.pts}</td>
+    </tr>`).join('');
+}
+
+function setStandFilter(cat){ standFilterCat=cat; renderStandings(); }
+
+// ══════════════════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════════════════
+function renderDash(){
+  document.getElementById('ds-clubs').textContent=clubs.length;
+  document.getElementById('ds-players').textContent=players.length;
+  document.getElementById('ds-matches').textContent=matches.length;
+
+  const cats=['أكابر','أمل (أقل من 21)','شبان (أقل من 18)','أواسط (أقل من 16)','أشبال (أقل من 14)','براعم (أقل من 12)'];
+  const active=cats.filter(c=>players.some(p=>p.category===c));
+  document.getElementById('ds-categories').textContent=active.length;
+
+  const catCards=document.getElementById('dashCategoryCards');
+  catCards.innerHTML=cats.map(cat=>{
+    const cnt=players.filter(p=>p.category===cat).length;
+    if(!cnt) return '';
+    return `<div class="stat-card" style="border-top-color:var(--gold)">
+      <div class="big" style="font-size:1.6rem">${cnt}</div>
+      <div class="lbl">${cat}</div>
+    </div>`;
+  }).join('');
+  if(!catCards.innerHTML) catCards.innerHTML='<p style="color:#aaa;font-size:.85rem">لا توجد بيانات بعد</p>';
+
+  const recent=document.getElementById('dashRecentMatches');
+  const last=[...matches].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,4);
+  if(!last.length){ recent.innerHTML='<p style="color:#aaa;font-size:.85rem">لا توجد مباريات مسجلة بعد.</p>'; return; }
+  recent.innerHTML=last.map(m=>`<div class="match-card" style="margin-bottom:8px">
+    <div class="match-meta"><span>📅 ${m.date}</span><span class="badge badge-gold">${m.category}</span></div>
+    <div class="match-score">
+      <div class="match-team">${getClubName(m.homeId)}</div>
+      <div class="score-box">${m.homeScore} <span class="score-dash">–</span> ${m.awayScore}</div>
+      <div class="match-team right-align">${getClubName(m.awayId)}</div>
+    </div>
+  </div>`).join('');
+}
+
+function updateStats(){
+  document.getElementById('hs-clubs').textContent=clubs.length;
+  document.getElementById('hs-players').textContent=players.length;
+  document.getElementById('hs-matches').textContent=matches.length;
+}
+
+// ══════════════════════════════════════════
+//  SEED DEMO DATA (first load only)
+// ══════════════════════════════════════════
+function seedDemo(){
+  if(clubs.length) return;
+  const demoClubs=[
+    {id:'c1',name:'نادي الأمل الرياضي كلميم',city:'كلميم',year:1975,stadium:'ملعب المسيرة',president:'عبد الله حموشي',coach:'محمد الزياني',phone:'0661-111111',email:'',categories:['أكابر','شبان'],createdAt:new Date().toISOString()},
+    {id:'c2',name:'اتحاد تانتان الرياضي',city:'تانتان',year:1980,stadium:'ملعب الحسن الثاني',president:'سعيد البوعناني',coach:'يوسف الإدريسي',phone:'0661-222222',email:'',categories:['أكابر','أمل (أقل من 21)'],createdAt:new Date().toISOString()},
+    {id:'c3',name:'الوداد الرياضي سيدي إفني',city:'سيدي إفني',year:1968,stadium:'ملعب المنتزه',president:'عمر الصنهاجي',coach:'حسن الريحاني',phone:'0661-333333',email:'',categories:['أكابر','أشبال'],createdAt:new Date().toISOString()},
+    {id:'c4',name:'نادي الفتح الرياضي أسا',city:'أسا',year:1992,stadium:'ملعب أسا',president:'مصطفى الشراط',coach:'خالد المرابط',phone:'0661-444444',email:'',categories:['أكابر'],createdAt:new Date().toISOString()},
+  ];
+  clubs.push(...demoClubs); save('clubs',clubs);
+
+  const demoPlayers=[
+    {id:'p1',name:'محمد الزياني',cin:'BE100001',category:'أكابر',clubId:'c1',birth:'1998-03-15',position:'مهاجم',number:'9',licence:'GN-2024-001',nationality:'مغربية',notes:'',createdAt:new Date().toISOString()},
+    {id:'p2',name:'يونس البكاري',cin:'BE100002',category:'أكابر',clubId:'c1',birth:'1997-07-22',position:'حارس مرمى',number:'1',licence:'GN-2024-002',nationality:'مغربية',notes:'',createdAt:new Date().toISOString()},
+    {id:'p3',name:'أنس المرابط',cin:'BE100003',category:'أكابر',clubId:'c2',birth:'1999-11-08',position:'وسط',number:'8',licence:'GN-2024-003',nationality:'مغربية',notes:'',createdAt:new Date().toISOString()},
+    {id:'p4',name:'كريم الأمين',cin:'BE100004',category:'شبان (أقل من 18)',clubId:'c1',birth:'2007-05-14',position:'جناح أيمن',number:'7',licence:'GN-2024-010',nationality:'مغربية',notes:'',createdAt:new Date().toISOString()},
+    {id:'p5',name:'سامي البوعناني',cin:'BE100005',category:'أكابر',clubId:'c3',birth:'1996-09-30',position:'قلب دفاع',number:'5',licence:'GN-2024-005',nationality:'مغربية',notes:'',createdAt:new Date().toISOString()},
+  ];
+  players.push(...demoPlayers); save('players',players);
+
+  const today=new Date(); const fmt=d=>d.toISOString().slice(0,10);
+  const d1=new Date(today); d1.setDate(d1.getDate()-7);
+  const d2=new Date(today); d2.setDate(d2.getDate()-3);
+  const demoMatches=[
+    {id:'m1',category:'أكابر',date:fmt(d1),homeId:'c1',awayId:'c2',homeScore:2,awayScore:1,round:'1',stadium:'ملعب المسيرة',notes:'',createdAt:new Date().toISOString()},
+    {id:'m2',category:'أكابر',date:fmt(d2),homeId:'c3',awayId:'c4',homeScore:0,awayScore:0,round:'1',stadium:'ملعب المنتزه',notes:'',createdAt:new Date().toISOString()},
+    {id:'m3',category:'أكابر',date:fmt(today),homeId:'c2',awayId:'c3',homeScore:3,awayScore:1,round:'2',stadium:'ملعب الحسن الثاني',notes:'',createdAt:new Date().toISOString()},
+  ];
+  matches.push(...demoMatches); save('matches',matches);
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+seedDemo();
+updateStats();
+renderDash();
+</script>
+</body>
+</html>
